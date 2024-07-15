@@ -4,33 +4,38 @@ let slideInterval;
 function showSlide(n) {
     const slides = document.querySelectorAll('.card');
     const carousel = document.querySelector('.carousel');
-    const totalSlides = slides.length / 2; // Adjusted for cloned slides
+    const totalSlides = slides.length;
+
+    const cardWidth = slides[0].clientWidth;
+    const totalWidth = cardWidth * totalSlides;
+    const visibleWidth = carousel.clientWidth;
+    const maxIndex = Math.ceil(totalWidth / visibleWidth) - 1;
 
     if (n >= totalSlides) {
         index = 0;
         carousel.style.transition = 'none';
-        carousel.style.transform = `translateX(-${index * 25}%)`;
+        carousel.style.transform = `translateX(-${index * cardWidth}px)`;
         // Force reflow
         carousel.offsetHeight;
         index++;
         setTimeout(() => {
             carousel.style.transition = 'transform 0.5s ease-in-out';
-            carousel.style.transform = `translateX(-${index * 25}%)`;
+            carousel.style.transform = `translateX(-${index * cardWidth}px)`;
         }, 50);
     } else if (n < 0) {
         index = totalSlides - 1;
         carousel.style.transition = 'none';
-        carousel.style.transform = `translateX(-${index * 25}%)`;
+        carousel.style.transform = `translateX(-${index * cardWidth}px)`;
         // Force reflow
         carousel.offsetHeight;
         index--;
         setTimeout(() => {
             carousel.style.transition = 'transform 0.5s ease-in-out';
-            carousel.style.transform = `translateX(-${index * 25}%)`;
+            carousel.style.transform = `translateX(-${index * cardWidth}px)`;
         }, 50);
     } else {
         index = n;
-        carousel.style.transform = `translateX(-${index * 25}%)`;
+        carousel.style.transform = `translateX(-${index * cardWidth}px)`;
     }
 }
 
@@ -66,16 +71,20 @@ function cloneSlides() {
 document.addEventListener('DOMContentLoaded', () => {
     cloneSlides();
     startSlideShow();
-});
 
-document.querySelector('.prev').addEventListener('click', () => {
-    stopSlideShow();
-    prevSlide();
-    startSlideShow();
-});
+    document.querySelector('.prev').addEventListener('click', () => {
+        stopSlideShow();
+        prevSlide();
+        startSlideShow();
+    });
 
-document.querySelector('.next').addEventListener('click', () => {
-    stopSlideShow();
-    nextSlide();
-    startSlideShow();
+    document.querySelector('.next').addEventListener('click', () => {
+        stopSlideShow();
+        nextSlide();
+        startSlideShow();
+    });
+
+    window.addEventListener('resize', () => {
+        showSlide(index); // Adjust slide on window resize
+    });
 });

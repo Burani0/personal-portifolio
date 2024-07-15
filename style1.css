@@ -1,8 +1,5 @@
-
-
 .carousel-container {
     position: relative;
-
     overflow: hidden;
 }
 
@@ -48,4 +45,11 @@
 
 .next {
     right: 10px;
+}
+
+/* Media query for small devices */
+@media (max-width: 600px) {
+    .card {
+        min-width: 100%;
+    }
 }
