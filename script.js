@@ -1,41 +1,43 @@
 let index = 0;
 let slideInterval;
 
+function updateCarousel() {
+    const slides = document.querySelectorAll('.card');
+    const carousel = document.querySelector('.carousel');
+    const cardWidth = slides[0].clientWidth + 20; // Add margin width
+    carousel.style.transform = `translateX(-${index * cardWidth}px)`;
+}
+
 function showSlide(n) {
     const slides = document.querySelectorAll('.card');
     const carousel = document.querySelector('.carousel');
     const totalSlides = slides.length;
 
-    const cardWidth = slides[0].clientWidth;
-    const totalWidth = cardWidth * totalSlides;
-    const visibleWidth = carousel.clientWidth;
-    const maxIndex = Math.ceil(totalWidth / visibleWidth) - 1;
-
-    if (n >= totalSlides) {
+    if (n >= totalSlides - 4) { // Adjust for clones
         index = 0;
         carousel.style.transition = 'none';
-        carousel.style.transform = `translateX(-${index * cardWidth}px)`;
+        updateCarousel();
         // Force reflow
         carousel.offsetHeight;
         index++;
         setTimeout(() => {
             carousel.style.transition = 'transform 0.5s ease-in-out';
-            carousel.style.transform = `translateX(-${index * cardWidth}px)`;
+            updateCarousel();
         }, 50);
     } else if (n < 0) {
-        index = totalSlides - 1;
+        index = totalSlides - 5; // Adjust for clones
         carousel.style.transition = 'none';
-        carousel.style.transform = `translateX(-${index * cardWidth}px)`;
+        updateCarousel();
         // Force reflow
         carousel.offsetHeight;
         index--;
         setTimeout(() => {
             carousel.style.transition = 'transform 0.5s ease-in-out';
-            carousel.style.transform = `translateX(-${index * cardWidth}px)`;
+            updateCarousel();
         }, 50);
     } else {
         index = n;
-        carousel.style.transform = `translateX(-${index * cardWidth}px)`;
+        updateCarousel();
     }
 }
 
@@ -59,7 +61,7 @@ function stopSlideShow() {
 function cloneSlides() {
     const carousel = document.querySelector('.carousel');
     const slides = document.querySelectorAll('.card');
-    const cloneCount = 3; // Number of slides to clone
+    const cloneCount = 4; // Number of slides to clone
 
     for (let i = 0; i < cloneCount; i++) {
         const clone = slides[i].cloneNode(true);
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startSlideShow();
     });
 
-    window.addEventListener('resize', () => {
-        showSlide(index); // Adjust slide on window resize
-    });
+    window.addEventListener('resize', updateCarousel);
+
+    updateCarousel(); // Initial update
 });

@@ -9,12 +9,13 @@
 }
 
 .card {
+    color:white;
     min-width: 30%;
     box-sizing: border-box;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #000641;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 90px #03fdf9, 0 0 40px #03fdf9;
     text-align: center;
     margin: 10px;
 }
@@ -25,6 +26,11 @@
 
 .card p {
     margin: 0;
+   
+}
+
+p{
+    color:white;
 }
 
 .carousel-btn {

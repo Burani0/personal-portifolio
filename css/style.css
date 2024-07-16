@@ -43,7 +43,7 @@ header {
 }
 
 span {
-    color: #fc04a9;
+    color: white
 }
 
 .text {
@@ -63,14 +63,14 @@ span {
     display: inline-block;
     padding: 20px 40px;
     margin-top: 50px;
-    background: linear-gradient(#fc04a9, #03fdf9);
+    background: linear-gradient(#000641, #03fdf9);
     text-decoration: none;
     color: #fff;
     transition: background 0.3s ease;
 }
 
 .btn:hover {
-    background: linear-gradient(#03fdf9, #fc04a9);
+    background: linear-gradient(#03fdf9, #000641);
 }
 
 * {
@@ -222,4 +222,8 @@ section {
         padding: 8px 16px;
         margin-top: 20px;
     }
+}
+
+p{
+    color:white;
 }
